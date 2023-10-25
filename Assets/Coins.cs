@@ -5,6 +5,7 @@ using UnityEngine;
 public class CoinRotate : MonoBehaviour
 {
     PlayerMove playerMove;
+    GameManager GM;
     float m_rotation_speed = 0.3f;
     float up_down_speed = 0.3f;
     float base_y;
@@ -13,9 +14,11 @@ public class CoinRotate : MonoBehaviour
     void Start()
     {
         gameObject.tag = "Coin";
+        GM = GameObject.Find("GameManager").GetComponent<GameManager>();
         playerMove = GameObject.Find("Player").GetComponent<PlayerMove>();
         m_Rigidbody = GetComponent<Rigidbody>();
         base_y = transform.position.y/2;
+        //Destroy(this.gameObject);
     }
 
     // Update is called once per frame
@@ -28,9 +31,11 @@ public class CoinRotate : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Destroy(this.gameObject);
-        if (playerMove != null){
-            playerMove.AddScore(1);
+        if(other.gameObject.tag == "Player"){
+            Destroy(this.gameObject);
+            //playerMove.AddScore(1);
+
+            GM.addCoin();
         }
         
     }

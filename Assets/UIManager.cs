@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     TextMeshProUGUI scoreText;
     [SerializeField]
     TextMeshProUGUI gameOverText;
+    
     void Start()
     {
         scoreText.text = "Score: " + 0;
