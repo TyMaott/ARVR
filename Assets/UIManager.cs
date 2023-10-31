@@ -11,10 +11,13 @@ public class UIManager : MonoBehaviour
     TextMeshProUGUI scoreText;
     [SerializeField]
     TextMeshProUGUI gameOverText;
+    [SerializeField]
+    TextMeshProUGUI playerLivesText;
     
     void Start()
     {
         scoreText.text = "Score: " + 0;
+        playerLivesText.text = "Lives :\n<3 \n<3 \n<3";
         gameOverText.gameObject.SetActive(false);
     }
 
@@ -27,6 +30,19 @@ public class UIManager : MonoBehaviour
             GameOver();
         }
         
+    }
+
+    public void UpdateLives(int playerLives)
+    {
+        playerLivesText.text = "Lives :";
+        for (int i = 0;i<playerLives ;i++){
+            playerLivesText.text += "\n<3 ";
+        }
+        if (playerLives <= 0){
+            gameOverText.text = "you died..";
+            GameOver();
+        }
+
     }
 
     public void GameOver()

@@ -51,5 +51,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "ARVR TD1.sln"
+    "dotnet.defaultSolution": "ARVR TD1.sln",
+    "dotnet.preferCSharpExtension": true
 }

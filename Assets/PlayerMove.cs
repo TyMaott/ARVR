@@ -8,7 +8,9 @@ public class PlayerMove : MonoBehaviour
     ToggleMode _ToggleMode;
     int m_score = 0;
     float speed = 1.0f;
+    float jump_force = 300.0f;
     Rigidbody m_Rigidbody;
+    int lives;
     bool mode = true; // true = keyboard, false = buttons
 
     private GameObject[] getCount;
@@ -20,6 +22,7 @@ public class PlayerMove : MonoBehaviour
         _ToggleMode = GameObject.Find("Mode").GetComponent<ToggleMode>();
         m_Rigidbody = GetComponent<Rigidbody>();
         getCount = GameObject.FindGameObjectsWithTag("Coin");
+        lives = 3;
     }
 
     // Update is called once per frame
@@ -32,6 +35,14 @@ public class PlayerMove : MonoBehaviour
             Vector3 move = new Vector3(x_move, 0, z_move);
             m_Rigidbody.AddForce(move);
         }
+
+        // Grounded Test
+        if (m_Rigidbody.velocity.y == 0.0f){
+            if(Input.GetKeyDown(KeyCode.Space)){
+                Vector3 jump = new Vector3(0, 1*jump_force, 0);
+                m_Rigidbody.AddForce(jump);
+                }
+            }        
         getCount = GameObject.FindGameObjectsWithTag("Coin");
 
     }
@@ -58,6 +69,16 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
+    public void JumpButton(float jump_force)
+    {
+        // grounded test
+        if (m_Rigidbody.velocity.y == 0.0f){
+            Debug.Log("here");
+            Vector3 jump = new Vector3(0, 1*jump_force, 0);
+            m_Rigidbody.AddForce(jump);
+            }
+    }
+
     public void AddScore(int s)
     {
         m_score += s;
@@ -68,5 +89,17 @@ public class PlayerMove : MonoBehaviour
     {
         m_score += s;
         _UIManager.UpdateScore(m_score, r);
+    }
+
+    public void getLife(int l)
+    {
+        lives += l;
+        _UIManager.UpdateLives(lives);
+    }
+
+    public void loseLife(int l)
+    {
+        lives -= l;
+        _UIManager.UpdateLives(lives);
     }
 }

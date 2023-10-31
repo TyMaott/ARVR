@@ -6,6 +6,8 @@ MonoImporter:
   defaultReferences:
   - UI: {instanceID: 0}
   - Collectible: {fileID: 4099987432602966946, guid: a80a9b16908129b47b0b9febefab2e2f, type: 3}
+  - Fake: {fileID: 7043149120034602586, guid: f786c2ccf27c54343bdf7ae002d28ecc, type: 3}
+  - Life: {fileID: 1807484857878667982, guid: 40434413e8c7b4540bab2b8c3e6d7eef, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -14,6 +14,8 @@ public class ToggleMode : MonoBehaviour
     public GameObject buttonLeft;
     public GameObject buttonRight;
 
+    public GameObject buttonJump;
+
     void Start()
     {
         modeText.text = "Control mode: keyboard";
@@ -21,6 +23,7 @@ public class ToggleMode : MonoBehaviour
         buttonDown.SetActive(false);
         buttonLeft.SetActive(false);
         buttonRight.SetActive(false);
+        buttonJump.SetActive(false);
     }
 
     public void changeMode(bool mode)
@@ -30,6 +33,7 @@ public class ToggleMode : MonoBehaviour
         buttonDown.SetActive(!mode);
         buttonLeft.SetActive(!mode);
         buttonRight.SetActive(!mode);
+        buttonJump.SetActive(!mode);
 
     }
 

@@ -12,8 +12,10 @@ public class GameManager : MonoBehaviour
     private int playerScore = 0;
 
     public GameObject Collectible;
+    public GameObject Fake;
+    public GameObject Life;
 
-    public Transform[] spawnpoints;
+    public Transform[] Consumable_spawnpoints;
 
     PlayerMove playerMove;
   
@@ -34,19 +36,26 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        // for (int i = 0 ; i < spawnpoints.Length; i++)
-        //     {
-        //         spawnpoints[i].position += Vector3.down * 2.0f;
-        //     }
         playerMove = GameObject.Find("Player").GetComponent<PlayerMove>();
-        Instantiate(Collectible, spawnpoints[0].position, Quaternion.identity);
-        Debug.Log(spawnpoints[0].position);
+        Instantiate(Collectible, Consumable_spawnpoints[0].position, Quaternion.identity);
         
     }
 
     public void addCoin()
     {
-        Instantiate(Collectible, spawnpoints[(++playerScore)%spawnpoints.Length].position, Quaternion.identity);
+        Vector3 pos = Consumable_spawnpoints[(++playerScore)%Consumable_spawnpoints.Length].position;
+        Instantiate(Collectible, pos, Quaternion.identity);
+        
+        // for some coins, we also add a fake coin (which loses a life if collected)
+        // and a life
+        if(pos.y >= 1){
+            Vector3 fake_pos = new Vector3(pos.x, 0.5f, pos.z); 
+            Instantiate(Fake, fake_pos, Quaternion.identity);
+            
+            Vector3 life_pos = new Vector3(pos.x/2, 0.5f, pos.z);
+            Instantiate(Life, life_pos, Quaternion.identity);
+        }
+
         playerMove.AddScoreInstanciate(1, 12-playerScore);
     }
     
