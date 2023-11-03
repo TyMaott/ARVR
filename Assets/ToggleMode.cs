@@ -18,7 +18,7 @@ public class ToggleMode : MonoBehaviour
 
     void Start()
     {
-        modeText.text = "Control mode: keyboard";
+        modeText.text = "Control mode: \nkeyboard";
         buttonUp.SetActive(false);
         buttonDown.SetActive(false);
         buttonLeft.SetActive(false);
@@ -28,7 +28,7 @@ public class ToggleMode : MonoBehaviour
 
     public void changeMode(bool mode)
     {
-        modeText.text = "Control mode: " + (mode ? "keyboard" : "buttons");
+        modeText.text = "Control mode: \n" + (mode ? "keyboard" : "buttons");
         buttonUp.SetActive(!mode);
         buttonDown.SetActive(!mode);
         buttonLeft.SetActive(!mode);

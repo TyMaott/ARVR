@@ -6,6 +6,7 @@ using TMPro;
 public class UIManager : MonoBehaviour
 {
     // Start is called before the first frame update
+    GameManager GM;
     private int m_score;
     [SerializeField]
     TextMeshProUGUI scoreText;
@@ -13,12 +14,21 @@ public class UIManager : MonoBehaviour
     TextMeshProUGUI gameOverText;
     [SerializeField]
     TextMeshProUGUI playerLivesText;
+
+    public GameObject startButton;
+
+    public GameObject screenFlashHit;
+    public GameObject screenFlashHeal;
     
     void Start()
     {
+        GM = GameObject.Find("GameManager").GetComponent<GameManager>();
         scoreText.text = "Score: " + 0;
         playerLivesText.text = "Lives :\n<3 \n<3 \n<3";
         gameOverText.gameObject.SetActive(false);
+        startButton.SetActive(false);
+        screenFlashHit.SetActive(false);
+        screenFlashHeal.SetActive(false);
     }
 
     // Update is called once per frame
@@ -27,9 +37,17 @@ public class UIManager : MonoBehaviour
         if(remaining > 0){
             scoreText.text = "Score: " + playerScore + "\nRemaining Coins: " + remaining;
         }else{
-            GameOver();
+            if (GM.isTuto){
+                startButton.SetActive(true);
+            }else{
+                GameOver();
+            }
         }
-        
+    }
+
+    public void hideButton()
+    {
+        startButton.SetActive(false);
     }
 
     public void UpdateLives(int playerLives)
@@ -43,6 +61,23 @@ public class UIManager : MonoBehaviour
             GameOver();
         }
 
+    }
+
+    public void hitFlash()
+    {
+        StartCoroutine(ShowandHide(screenFlashHit, 0.5f));
+    }
+
+    public void HealFlash()
+    {
+        StartCoroutine(ShowandHide(screenFlashHeal, 0.5f));
+    }
+
+    IEnumerator ShowandHide(GameObject sf, float delay)
+    {
+        sf.SetActive(true);
+        yield return new WaitForSeconds(delay);
+        sf.SetActive(false);
     }
 
     public void GameOver()

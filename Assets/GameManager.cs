@@ -15,10 +15,12 @@ public class GameManager : MonoBehaviour
     public GameObject Fake;
     public GameObject Life;
 
+    public bool isTuto;
+
     public Transform[] Consumable_spawnpoints;
+    public Transform[] Tuto_spawnpoints;
 
     PlayerMove playerMove;
-  
     
     // Start is called before the first frame update
     void Awake()
@@ -36,9 +38,29 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        UI = GameObject.Find("Canvas").GetComponent<UIManager>();
         playerMove = GameObject.Find("Player").GetComponent<PlayerMove>();
+        isTuto = true;
+        Instantiate(Collectible, Tuto_spawnpoints[0].position, Quaternion.identity);
+    }
+
+    public void startGame()
+    {
+        isTuto = false;
+        playerScore = 0;
+        UI.hideButton();
         Instantiate(Collectible, Consumable_spawnpoints[0].position, Quaternion.identity);
-        
+    }
+
+    public void addTutoCoin()
+    {
+        playerScore++;
+        playerMove.AddScoreInstanciate(1, Tuto_spawnpoints.Length-playerScore);
+        if (playerScore < Tuto_spawnpoints.Length)
+        {
+            Vector3 pos = Tuto_spawnpoints[playerScore].position;
+            Instantiate(Collectible, pos, Quaternion.identity);
+        }
     }
 
     public void addCoin()
@@ -52,8 +74,8 @@ public class GameManager : MonoBehaviour
             Vector3 fake_pos = new Vector3(pos.x, 0.5f, pos.z); 
             Instantiate(Fake, fake_pos, Quaternion.identity);
             
-            Vector3 life_pos = new Vector3(pos.x/2, 0.5f, pos.z);
-            Instantiate(Life, life_pos, Quaternion.identity);
+            // Vector3 life_pos = new Vector3(pos.x/2, 0.5f, pos.z);
+            // Instantiate(Life, life_pos, Quaternion.identity);
         }
 
         playerMove.AddScoreInstanciate(1, 12-playerScore);

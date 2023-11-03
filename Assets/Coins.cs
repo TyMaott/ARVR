@@ -37,8 +37,16 @@ public class CoinRotate : MonoBehaviour
     {
         if(other.gameObject.tag == "Player"){
             Destroy(this.gameObject);
-            GM.addCoin();
+            if(GM.isTuto){
+                GM.addTutoCoin();
+            }else{
+                GM.addCoin();
+            }
         }
-        
+    }
+
+    public void removeSelf()
+    {
+        Destroy(this.gameObject);
     }
 }

@@ -91,15 +91,29 @@ public class PlayerMove : MonoBehaviour
         _UIManager.UpdateScore(m_score, r);
     }
 
+    public void ResetScore()
+    {
+        m_score = 0;
+        _UIManager.UpdateScore(m_score, 12);
+    }
+
+    public void ResetPosition()
+    {
+        transform.position = new Vector3(0,5,0);
+    }
+
     public void getLife(int l)
     {
+        _UIManager.HealFlash();
         lives += l;
         _UIManager.UpdateLives(lives);
     }
 
     public void loseLife(int l)
     {
+        _UIManager.hitFlash(); // screenflash
         lives -= l;
         _UIManager.UpdateLives(lives);
+        
     }
 }
